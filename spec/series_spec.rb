@@ -1,33 +1,37 @@
 require_relative "../lib/StarTrekCLI/series.rb"
 
 describe Series do
+  let(:a_series) { Series.new("Foo") }
 
-  let(:series) { Series.new("Voyager") }
-
+  # we do not care *what* the series name is!
   it "can initialize a series" do
-    expect(series).to be_a(Series)
+    expect(a_series).to be_a(Series)
   end
 
+  # we care about name
   it "initializes with a name" do
-    expect(series.name).to eq("Voyager")
+    voyager = Series.new("Voyager")
+    expect(voyager.name).to eq("Voyager")
   end
 
+  # check attr_reader
   it "does not allow you to change its name" do
-    expect { series.name = "Empire Strikes Back" }.to raise_error NoMethodError
+    expect { a_series.name = "Empire Strikes Back" }.to raise_error NoMethodError
   end
 
   describe "#seasons" do
-      let(:series) { Series.new("Voyager") }
 
+    # we do not care about what series it is
     it "can be called" do
-      expect { series.seasons }.not_to raise_error NoMethodError
+      expect { a_series.seasons }.not_to raise_error NoMethodError
     end
 
+    # we do not care about the specific series
     it "does return nil if there are no seasons" do
-      expect(series.seasons).to be_nil
+      expect(a_series.seasons).to be_nil
     end
 
 
   end # Series#seasons
 
-end
+end # Series
