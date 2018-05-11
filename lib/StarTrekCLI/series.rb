@@ -2,16 +2,14 @@ require "pry"
 require "byebug"
 
 class Series
-  attr_accessor :name
-
-  @@all = []
+  attr_reader :name, :season
 
   def initialize(name=nil)
     @name = name
   end
 
-  def self.all
-    @@all
+  def season
+    @season
   end
 
 
