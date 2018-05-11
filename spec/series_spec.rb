@@ -14,6 +14,14 @@ describe Series do
     expect(voyager.name).to eq("Voyager")
   end
 
+  it "initializes seasons as empty" do
+    expect(a_series.seasons).to be_empty
+  end
+
+  it "initializes with a seasons array" do
+    expect(a_series.seasons).to be_a(Array)
+  end
+
   # check attr_reader
   it "does not allow you to change its name" do
     expect { a_series.name = "Empire Strikes Back" }.to raise_error NoMethodError
@@ -30,6 +38,8 @@ describe Series do
     it "does return nil if there are no seasons" do
       expect(a_series.seasons).to be_nil
     end
+
+    it "actually sets the season int"
 
 
   end # Series#seasons
