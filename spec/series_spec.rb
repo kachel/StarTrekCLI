@@ -34,14 +34,6 @@ describe Series do
       expect { a_series.seasons }.not_to raise_error NoMethodError
     end
 
-    # we do not care about the specific series
-    it "does return nil if there are no seasons" do
-      expect(a_series.seasons).to be_nil
-    end
-
-    it "actually sets the season int"
-
-
   end # Series#seasons
 
 end # Series
