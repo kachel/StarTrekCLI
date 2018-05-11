@@ -1,3 +1,5 @@
+require_relative "../lib/StarTrekCLI/series.rb"
+
 describe 'Series' do
   describe '::new' do
     it 'gets initialized with a name' do
