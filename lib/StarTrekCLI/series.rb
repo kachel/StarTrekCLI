@@ -8,10 +8,4 @@ class Series
     @name = name
     @seasons = []
   end
-
-  def season
-    @season
-  end
-
-
 end
