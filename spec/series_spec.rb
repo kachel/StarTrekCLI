@@ -27,6 +27,10 @@ describe Series do
     expect { a_series.name = "Empire Strikes Back" }.to raise_error NoMethodError
   end
 
+  it "does not allow you to change its season" do
+    expect { a_series.seasons = "Empire Strikes Back" }.to raise_error NoMethodError
+  end
+
   describe "#seasons" do
 
     # we do not care about what series it is
