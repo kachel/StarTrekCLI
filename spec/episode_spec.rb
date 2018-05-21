@@ -1,14 +1,14 @@
-require_relative "../lib/StarTrekCLI/episodes.rb"
+require_relative "../lib/StarTrekCLI/episode.rb"
 
-describe Episodes do
-  let(:an_episode) { Episodes.new("Foo") }
+describe Episode do
+  let(:an_episode) { Episode.new("Foo") }
 
   it "can initialize an episode" do
-    expect(an_episode).to be_a(Episodes)
+    expect(an_episode).to be_a(Episode)
   end
 
   it "initializes with a name" do
-    darmok = Episodes.new("Darmok")
+    darmok = Episode.new("Darmok")
     expect(darmok.name).to eq("Darmok")
   end
 
@@ -38,4 +38,4 @@ describe Episodes do
     end
   end
 
-end # Episodes
+end # Episode
