@@ -1,7 +1,7 @@
 require 'pry'
 require 'byebug'
 
-class Episode
+class StarTrekCLI::Episode
   attr_reader :name, :air_date, :star_date
 
   def initialize(name = nil)

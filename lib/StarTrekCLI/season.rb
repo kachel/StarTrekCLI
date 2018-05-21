@@ -1,7 +1,7 @@
 require 'pry'
 require 'byebug'
 
-class Season
+class StarTrekCLI::Season
   attr_reader :number, :episodes
 
   def initialize(number = nil)
