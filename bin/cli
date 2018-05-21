@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "StarTrekCLI"
+
+
+# cell_group changed to cell for abstraction purposes
+StarTrekCLI::Scraper.new.each_table_cell do |cell|
+  StarTrekCLI::Series.new(cell[:title])
+end
+
+StarTrekCLI::Controller.new.call
