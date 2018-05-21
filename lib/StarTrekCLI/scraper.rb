@@ -22,10 +22,27 @@ module StarTrekCLI
         }
         yield cell_group
       end
-
-      # TODO: FUCKING ENTERPRISE THE GARBAGE SERIESSSS
-
     end
+        # TODO: FUCKING ENTERPRISE THE GARBAGE SERIESSSS
+
+    def each_table_cell_series
+      doc = Nokogiri::HTML(open("http://chakoteya.net/StarTrek/episodes.htm"))
+      page_rows = doc.css("body > table > tbody > tr")
+
+      page_rows.css("table").each do |table|
+        rows = table.css("tr")
+        rows.shift
+
+        rows.each do |row|
+          episode_row = {
+            :episode_name => row.css("td")[0].text.strip,
+            :production_date => row.css("td")[1].text.strip,
+            :air_date => row.css("td")[2].text.strip,
+          }
+        end
+      end
+    end
+
 
   end # Scraper
 end # module StarTrekCLI

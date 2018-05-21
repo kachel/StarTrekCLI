@@ -9,4 +9,5 @@ StarTrekCLI::Scraper.new.each_table_cell do |cell|
   StarTrekCLI::Series.new(cell[:title])
 end
 
-StarTrekCLI::Controller.new.call
+StarTrekCLI::Scraper.new.each_table_cell_series
+# StarTrekCLI::Controller.new.call
