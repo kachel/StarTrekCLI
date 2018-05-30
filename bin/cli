@@ -4,22 +4,6 @@ require 'bundler/setup'
 require 'StarTrekCLI'
 require 'optparse'
 
-
-# cell_group changed to group for abstraction purposes
-# StarTrekCLI::Scraper.new.each_index_group do |group|
-#   StarTrekCLI::Series.new(group[:title])
-#   # StarTrekCLI::Scraper.each_series_page
-# end
-#
-# StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
-#   StarTrekCLI::Season.new(row[:number])
-# end
-#
-# StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
-#   StarTrekCLI::Season.new(stuff[:name])
-# end
-
-
 # stateless interface
 instructions = {}
 

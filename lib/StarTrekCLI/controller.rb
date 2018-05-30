@@ -10,8 +10,10 @@ class StarTrekCLI::Controller
        # StarTrekCLI::Scraper.each_series_page
      end
 
-     StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
-       StarTrekCLI::Season.new(row[:number])
+    # hard coding to VOY
+     StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/Voyager/episode_listing.htm") do |row|
+      series = StarTrekCLI::Series.find_series_by_name("Voyager")
+      StarTrekCLI::Season.new(series, row[:number])
      end
 
      StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
