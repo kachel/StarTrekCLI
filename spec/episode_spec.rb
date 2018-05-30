@@ -1,4 +1,5 @@
 require_relative "../lib/StarTrekCLI/episode.rb"
+require_relative "../lib/StarTrekCLI/version.rb"
 
 describe Episode do
   let(:an_episode) { Episode.new("Foo") }
