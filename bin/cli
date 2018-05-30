@@ -1,21 +1,51 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "StarTrekCLI"
+require 'bundler/setup'
+require 'StarTrekCLI'
+require 'optparse'
 
 
 # cell_group changed to group for abstraction purposes
-StarTrekCLI::Scraper.new.each_index_group do |group|
-  StarTrekCLI::Series.new(group[:title])
-  # StarTrekCLI::Scraper.each_series_page
+# StarTrekCLI::Scraper.new.each_index_group do |group|
+#   StarTrekCLI::Series.new(group[:title])
+#   # StarTrekCLI::Scraper.each_series_page
+# end
+#
+# StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
+#   StarTrekCLI::Season.new(row[:number])
+# end
+#
+# StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
+#   StarTrekCLI::Season.new(stuff[:name])
+# end
+
+
+# stateless interface
+instructions = {}
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [instructions]"
+
+  # opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+  #   instructions[:verbose] = v
+  # end
+
+  opts.on("--list-series", "List series") do |bool|
+    instructions[:list_series] = bool
+  end
+
+end # parser
+
+parser.parse!
+
+if instructions[:list_series]
+  puts "All Star Trek series:"
+  StarTrekCLI::Controller.new.list_series
+
+else
+  puts "TODO print"
 end
 
-StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
-  StarTrekCLI::Season.new(row[:number])
-end
 
-StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
-  StarTrekCLI::Season.new(stuff[:name])
-end
 
-# StarTrekCLI::Controller.new.call
+# TODO: print help if no arguments
