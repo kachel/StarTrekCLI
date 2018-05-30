@@ -26,6 +26,7 @@ module StarTrekCLI
     end
         # TODO: FUCKING ENTERPRISE THE GARBAGE SERIESSSS
 
+    # This method pulls information from the scraped series using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
     def each_series_page(series_url)
       doc = Nokogiri::HTML(open(series_url))
       page_rows = doc.css("body > table > tbody > tr")
@@ -52,19 +53,14 @@ module StarTrekCLI
     # This method pulls information from the scraped episodes using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
     def episode_page_header(episode_url)
       doc = Nokogiri::HTML(open(episode_url))
-      episode_html = doc.css("body > p > font")
+      header = doc.css("body > p").first
 
-      episode_html.each do |info|
-
-          # FIXME: get rid of "stardate" and "airdate"
-          episode_stuff = {
-            :episode_name => info.children[0].text.strip,
-            # more than one way to skin a cat
-            :star_date => info.children[1].text.slice(/(?<=:)(.*)/).strip,
-            :air_date => info.children[3].text.split(":")[1].strip
-          }
+      episode_stuff = {
+        :episode_name => header.css("b").text.strip,
+        :star_date => header.text.split("\n")[2],
+        :air_date => header.text.split("\n")[3].slice(/(?<=:)(.*)/).strip
+      }
         yield episode_stuff
-      end
     end
 
 
