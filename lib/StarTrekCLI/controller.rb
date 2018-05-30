@@ -18,11 +18,12 @@ class StarTrekCLI::Controller
 
       case command
       when :exit
+        puts "Goodbye, ensign!"
         break
       when :help
         help
-      when :"list series"
-        list_series
+      # when :"list episodes"
+      #   list_episodes
       else
         puts "Does not compute, please try again."
       end
@@ -39,5 +40,8 @@ class StarTrekCLI::Controller
       puts "#{series.name}"
     end
   end
+  #
+  # def list_episodes
+  # end
 
 end # StarTrekCLI::StarTrekController
