@@ -52,6 +52,14 @@ if instructions[:list_series]
   puts "All Star Trek series:"
   StarTrekCLI::Controller.new.list_series
 
+elsif instructions[:list_seasons]
+  puts "Here are the seasons for #{instructions[:list_seasons]}:"
+  StarTrekCLI::Controller.new.list_seasons(instructions[:list_seasons])
+
+elsif instructions[:list_episodes]
+  puts "Here are the episodes:"
+  StarTrekCLI::Controller.new.list_seasons
+
 else
   puts "TODO print"
 end
