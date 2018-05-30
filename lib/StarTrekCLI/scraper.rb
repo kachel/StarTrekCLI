@@ -43,32 +43,29 @@ module StarTrekCLI
             :episode_name => link.children.text.strip,
             :episode_url => link.attr("href").value,
             :production_number => row.css("td")[1].text.strip.to_i,
-            :air_date => row.css("td")[2].text.strip
           }
         yield episode_row
         end
       end
+    end
 
-      def episode_page_header(episode_url)
-      # FIXME: change url to variable
-        doc = Nokogiri::HTML(open(episode_url))
-        episode_html = doc.css("body > p > font")
-        binding.pry
+    # This method pulls information from the scraped episodes using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
+    def episode_page_header(episode_url)
+      doc = Nokogiri::HTML(open(episode_url))
+      episode_html = doc.css("body > p > font")
 
-        episode_html.each do |info|
+      episode_html.each do |info|
 
-            episode_stuff = {
-              :episode_name => info.children[0].text.strip,
-              :star_date => info.children[1].text.strip,
-              :air_date => info.children[3].text.strip
-            }
-          yield episode_stuff
-        end
+          # FIXME: get rid of "stardate" and "airdate"
+          episode_stuff = {
+            :episode_name => info.children[0].text.strip,
+            # more than one way to skin a cat
+            :star_date => info.children[1].text.slice(/(?<=:)(.*)/).strip,
+            :air_date => info.children[3].text.split(":")[1].strip
+          }
+        yield episode_stuff
       end
-
-
-
-    end # Scraper#each_table_cell_series
+    end
 
 
   end # Scraper
