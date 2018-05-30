@@ -31,7 +31,17 @@ parser = OptionParser.new do |opts|
   # end
 
   opts.on("--list-series", "List series") do |bool|
+    # either true or false hence the |bool|
     instructions[:list_series] = bool
+  end
+
+  opts.on("--list-seasons SERIES", "List seasons for a series") do |series|
+  # list seasons *for* this series
+    instructions[:list_seasons] = series
+  end
+
+  opts.on("--list-episodes", "List episodes") do |bool|
+    instructions[:list_episodes] = bool
   end
 
 end # parser
