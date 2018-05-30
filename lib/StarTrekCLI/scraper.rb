@@ -6,7 +6,7 @@ require 'rb-readline'
 module StarTrekCLI
   class Scraper
 
-    # This method pulls information from the Chakoteya for each Star Trek series using an iterator. The data is constructed as a hash with `image_url`, `page_url`, and `title` properties. This is yielded as a block argument.
+    # This method pulls information from the Chakoteya index for each Star Trek series using an iterator. The data is constructed as a hash with `image_url`, `page_url`, and `title` properties. This is yielded as a block argument.
     def each_index_group
       # FIXME: there might be a ghost tbody hanging around
       doc = Nokogiri::HTML(open("http://chakoteya.net/StarTrek/index.html"))
