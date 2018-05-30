@@ -1,4 +1,7 @@
+require_relative "../lib/StarTrekCLI.rb"
 require_relative "../lib/StarTrekCLI/series.rb"
+
+Series = StarTrekCLI::Series
 
 describe Series do
   let(:a_series) { Series.new("Foo") }
