@@ -1,5 +1,6 @@
 require 'pry'
 require 'byebug'
+require 'rb-readline'
 
 class StarTrekCLI::Season
   attr_reader :number, :episodes, :series
