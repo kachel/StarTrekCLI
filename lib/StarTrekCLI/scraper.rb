@@ -15,6 +15,7 @@ module StarTrekCLI
       row1 = table.css("tr")[0].css("td a img") # images
       row2 = table.css("tr")[1].css("a") # links
 
+      # works like a do loop
       (0..3).each do |column|
         cell_group = {
           :image_url => row1[column].attr("src"),
