@@ -31,7 +31,9 @@ class StarTrekCLI::Controller
   def list_seasons(series_string)
     series = StarTrekCLI::Series.find_series_by_name(series_string)
     series.seasons.each do |season|
-      puts "#{season.number}"
+      if season
+        puts season.number
+      end
     end
   end
 

@@ -28,8 +28,9 @@ module StarTrekCLI
 
     # This method pulls information from the scraped series using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
     def each_series_page(series_url)
-      doc = Nokogiri::HTML(open(series_url))
-      page_rows = doc.css("body > table > tbody > tr")
+      html_source = open(series_url)
+      doc = Nokogiri::HTML(html_source)
+      page_rows = doc.css("body")
 
       # FIXME: seasons will have some problems like 101 + 102 or the animated series as season "4"
 
