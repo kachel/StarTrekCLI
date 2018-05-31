@@ -31,26 +31,44 @@ module StarTrekCLI
     def each_series_page(series_url)
       html_source = open(series_url)
       doc = Nokogiri::HTML(html_source)
-      page_rows = doc.css("body")
+      sub_tables = doc.css("body > table table")
 
       # FIXME: seasons will have some problems like 101 + 102 or the animated series as season "4"
+      if sub_tables.empty?
+        doc.css("body > div table").each_with_index do |table, index|
+          rows = table.css("tr")
+          rows.shift
+          rows.each do |row|
+            link = row.css("td")[0].css("a")
 
-      page_rows.css("table").each_with_index do |table, index|
-        rows = table.css("tr")
-        rows.shift
-        rows.each do |row|
-          link = row.css("td")[0].css("a")
+            episode_row = {
+              :season_number => index + 1,
+              :episode_name => link.children.text.strip,
+              :episode_url => link.attr("href").value,
+              :production_number => row.css("td")[1].text.strip.to_i,
+            }
+            yield episode_row
+          end # rows.each
+        end #  body > div table
 
-          episode_row = {
-            :season_number => index + 1,
-            :episode_name => link.children.text.strip,
-            :episode_url => link.attr("href").value,
-            :production_number => row.css("td")[1].text.strip.to_i,
-          }
-        yield episode_row
-        end
-      end
-    end
+      else # sub_tables is not empty
+        sub_tables.each_with_index do |table, index|
+          rows = table.css("tr")
+          rows.shift
+          rows.each do |row|
+            link = row.css("td").css("a")
+
+            episode_row = {
+              :season_number => index + 1,
+              :episode_name => link.children.text.strip,
+              :episode_url => link.attr("href").value,
+              :production_number => row.css("td")[1].text.strip.to_i,
+            }
+            yield episode_row
+          end # rows.each
+        end # subtables.each
+      end # if / else
+    end # def each_series_page
 
     # This method pulls information from the scraped episodes using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
     def episode_page_header(episode_url)
