@@ -72,7 +72,8 @@ module StarTrekCLI
 
     # This method pulls information from the scraped episodes using an iterator. The data is constructed as a hash with `episode_name`, `star_date`, and `air_date` properties. This is yielded as a block argument.
     def episode_page_header(episode_url)
-      doc = Nokogiri::HTML(open(episode_url))
+      html_source = open(episode_url)
+      doc = Nokogiri::HTML(html_source)
       header = doc.css("body > p").first
 
       episode_stuff = {
