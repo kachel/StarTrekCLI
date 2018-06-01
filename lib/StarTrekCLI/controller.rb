@@ -13,14 +13,14 @@ class StarTrekCLI::Controller
        # StarTrekCLI::Scraper.each_series_page
      end
 
-    # hard coding
+    # hard coding for the moment
      StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
       series = StarTrekCLI::Series.find_series_by_name("Star Trek")
       StarTrekCLI::Season.new(series, row[:season_number])
      end
 
      StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
-       StarTrekCLI::Episode.new(stuff[:name])
+       StarTrekCLI::Episode.new(season, number)
      end
   end
 
@@ -39,9 +39,22 @@ class StarTrekCLI::Controller
     end
   end
 
-  def list_episodes
-    StarTrekCLI::Episode.all.each do |episode|
-      puts "#{episode.name}"
+  def list_episodes(series_string, season_string)
+    raise "series must be an string" unless series_string.is_a? String
+    season_int = season_string.to_i
+
+    unless season_int > 0
+      raise "You must enter an integer for season number. You entered '#{season_string}'"
+    end
+
+    series = StarTrekCLI::Series.find_series_by_name(series_string)
+
+    selected_season = series.seasons[season_int]
+
+    selected_season.episodes.each do |episode|
+      if episode
+        puts "#{episode.name}"
+      end
     end
   end
 
