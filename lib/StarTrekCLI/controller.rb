@@ -14,9 +14,11 @@ class StarTrekCLI::Controller
      end
 
     # hard coding for the moment
-     StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |row|
+     StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |episode_row|
       series = StarTrekCLI::Series.find_series_by_name("Star Trek")
-      StarTrekCLI::Season.new(series, row[:season_number])
+      season = series.season(episode_row[:season_number])
+      # NYI: episode_url
+      StarTrekCLI::Episode.new(season, episode_row[:production_number], episode_row[:episode_name])
      end
 
      StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
