@@ -3,7 +3,7 @@ require 'byebug'
 require 'rb-readline'
 
 class StarTrekCLI::Season
-  attr_reader :number, :episodes, :series
+  attr_reader :season_number, :episodes, :series
 
   @@all = []
 
@@ -13,7 +13,7 @@ class StarTrekCLI::Season
     raise "series must be a Series instance" unless series.is_a? StarTrekCLI::Series
     @series = series
     @season_number = season_number
-    @episodes = []
+    @episodes = {}
     @@all << self
     series.seasons[season_number] = self
   end
