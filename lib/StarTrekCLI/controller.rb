@@ -49,12 +49,9 @@ class StarTrekCLI::Controller
     series = StarTrekCLI::Series.find_series_by_name(series_string)
     season = series.season(season_int)
 
-    selected_season = series.seasons[season_int]
-
-    selected_season.episodes.each do |episode|
-      if episode
-        puts "#{episode.name}"
-      end
+    ## working on season.episodes
+    season.episodes.each do |production_number, episode|
+      puts "#{production_number}: #{episode.name}"
     end
   end
 
