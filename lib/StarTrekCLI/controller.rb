@@ -21,9 +21,6 @@ class StarTrekCLI::Controller
       StarTrekCLI::Episode.new(season, episode_row[:production_number], episode_row[:episode_name])
      end
 
-     StarTrekCLI::Scraper.new.episode_page_header("http://chakoteya.net/DS9/401.htm") do |stuff|
-       StarTrekCLI::Episode.new(season, number)
-     end
   end
 
   def list_series
