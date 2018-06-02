@@ -47,6 +47,7 @@ class StarTrekCLI::Controller
     end
 
     series = StarTrekCLI::Series.find_series_by_name(series_string)
+    season = series.season(season_int)
 
     selected_season = series.seasons[season_int]
 
