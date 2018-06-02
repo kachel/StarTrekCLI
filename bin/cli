@@ -28,8 +28,7 @@ parser = OptionParser.new do |opts|
   # list episodes for a season
   opts.on("--list-episodes SERIES:SEASON", "List episodes for a season") do |spec|
     raise "Do not forget your colon. You typed '#{spec}'" unless spec.include?(":")
-    splitter = spec.split(":")
-    instructions[:list_episodes] = splitter
+    instructions[:list_episodes] = spec.split(":")
   end
 
 end # parser
@@ -46,7 +45,7 @@ elsif instructions[:list_seasons]
 
 elsif instructions[:list_episodes]
   puts "Here are the episodes:"
-  StarTrekCLI::Controller.new.list_episodes(splitter[0], splitter[1])
+  StarTrekCLI::Controller.new.list_episodes(instructions[:list_episodes][0], instructions[:list_episodes][1])
 
 else
   puts "TODO print"
