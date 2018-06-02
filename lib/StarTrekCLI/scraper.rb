@@ -51,7 +51,8 @@ module StarTrekCLI
               :season_number => index + 1,
               :episode_name => link.children.text.strip,
               :episode_url => link.attr("href").value,
-              :production_number => row.css("td")[1].text.strip.to_i,
+              # I am using to_i to truncate any second set of production numbers
+              :production_number => row.css("td")[1].text.strip.to_i.to_s,
             }
             yield episode_row
           end # rows.each
@@ -68,7 +69,7 @@ module StarTrekCLI
               :season_number => index + 1,
               :episode_name => link.children.text.strip,
               :episode_url => link.attr("href").value,
-              :production_number => row.css("td")[1].text.strip.to_i,
+              :production_number => row.css("td")[1].text.strip.to_i.to_s,
             }
             yield episode_row
           end # rows.each
