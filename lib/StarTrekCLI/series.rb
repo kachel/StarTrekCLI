@@ -23,4 +23,11 @@ class StarTrekCLI::Series
     end
   end
 
+
+  # NYI: url not fucking used, how is the url going to get to season.new?
+  def season(season_number)
+    @seasons[season_number] || StarTrekCLI::Season.new(self, season_number)
+  end
+
+
 end
