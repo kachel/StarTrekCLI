@@ -1,26 +1,38 @@
 require 'pry'
 require 'byebug'
 require 'rb-readline'
+require 'uri'
 
 class StarTrekCLI::Controller
 
+  # I am a constant <3
+  INDEX_URL = "http://chakoteya.net/StarTrek/index.html"
+
   def initialize
-  # FIXME: yuck
-     StarTrekCLI::Scraper.new.each_index_group do |group|
-      # this is a bad practice but
+    @scraper = StarTrekCLI::Scraper.new
+
+    @scraper.each_index_group(INDEX_URL) do |group|
+      # special case: Orginal series title has that weird new line hence the ternary
       title = group[:title] == "Original\nand Animated Series" ? "Star Trek" : group[:title]
-       StarTrekCLI::Series.new(title)
-       # StarTrekCLI::Scraper.each_series_page
-     end
 
-    # hard coding for the moment
-     StarTrekCLI::Scraper.new.each_series_page("http://chakoteya.net/StarTrek/episodes.htm") do |episode_row|
-      series = StarTrekCLI::Series.find_series_by_name("Star Trek")
-      season = series.season(episode_row[:season_number])
-      # NYI: episode_url
-      StarTrekCLI::Episode.new(season, episode_row[:production_number], episode_row[:episode_name])
-     end
+      series = StarTrekCLI::Series.new(title)
 
+      # this uses uri which is built into the ruby standardlibrary
+      series_url = URI.join(INDEX_URL, group[:page_url])
+
+      @scraper.each_series_page(series_url) do |episode_row|
+        season = series.season(episode_row[:season_number])
+        # NYI: episode_url
+        episode = StarTrekCLI::Episode.new(season, episode_row[:production_number], episode_row[:episode_name])
+
+        episode_url = series_url + episode_row[:episode_url]
+
+        byebug
+        @scaper.each_page_header(episode_url) do |episode_info|
+        puts episode_info
+        end
+      end
+    end
   end
 
   def list_series

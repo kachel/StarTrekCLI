@@ -10,9 +10,9 @@ module StarTrekCLI
     # series using an iterator. The data is constructed as a hash with
     # `image_url`, `page_url`, and `title` properties. This is yielded as a
     # block argument.
-    def each_index_group
+    def each_index_group(index_url)
       # FIXME: there might be a ghost tbody hanging around
-      doc = Nokogiri::HTML(open("http://chakoteya.net/StarTrek/index.html"))
+      doc = Nokogiri::HTML(open(index_url))
       table = doc.css("tbody")
 
       row1 = table.css("tr")[0].css("td a img") # images
