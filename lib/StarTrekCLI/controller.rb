@@ -76,4 +76,28 @@ class StarTrekCLI::Controller
     end
   end
 
+
+  def list_episode_info(series_string, season_string, production_number)
+
+    raise "series must be an string" unless series_string.is_a? String
+    series = StarTrekCLI::Series.find_series_by_name(series_string)
+
+    season_int = season_string.to_i
+    unless season_int > 0
+      raise "COMPUTER: You must enter an integer for season number. You entered '#{season_string}'"
+    end
+    season = series.season(season_int)
+
+    production_number_int = production_number.to_i
+    unless production_number_int > 0
+      raise "COMPUTER: You must enter an integer for production number. You entered '#{production_number}'"
+    end
+
+    episode = season.episodes[production_number_int.to_s]
+
+    puts "Air date: #{episode.air_date}"
+    puts "Star date: #{episode.star_date}"
+
+  end
+
 end # StarTrekCLI::StarTrekController
