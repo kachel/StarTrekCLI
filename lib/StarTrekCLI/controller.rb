@@ -25,11 +25,19 @@ class StarTrekCLI::Controller
         print "?" if print_progress
         season = series.season(episode_row[:season_number])
 
-        episode_url = series_url + episode_row[:episode_url]
+        episode_url = URI.join(INDEX_URL, group[:page_url], episode_row[:episode_url])
 
-        byebug
-        @scaper.each_page_header(episode_url) do |episode_info|
-        puts episode_info
+        # FIXME: this method needs some work!
+        @scraper.episode_page_header(episode_url) do |episode|
+          print "." if print_progress
+          StarTrekCLI::Episode.new(
+            season,
+            episode_row[:production_number],
+            episode_row[:episode_name],
+            episode[:star_date],
+            episode[:air_date]
+           )
+
         end
       end
     end
