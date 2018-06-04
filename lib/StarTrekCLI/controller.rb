@@ -51,6 +51,7 @@ class StarTrekCLI::Controller
 
   def list_seasons(series_string)
     series = StarTrekCLI::Series.find_series_by_name(series_string)
+    raise "This series is not scraped: '#{series_string}'" unless series
     series.seasons.each do |season|
       if season
         puts season.season_number
