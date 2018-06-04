@@ -32,9 +32,12 @@ parser = OptionParser.new do |opts|
   end
 
   opts.on("--list-episode-info SERIES:SEASON:PRODUCTION", "List episodes information") do |spec|
-    raise "COMPUTER: Do not forget *both* of your colons. You typed '#{spec}'" unless spec.include?(":")
+    raise "COMPUTER: Do not forget your colon. You typed '#{spec}'" unless spec.include?(":")
+
+    # FIXME
     instructions[:list_episode_info] = spec.split(":")
   end
+
 
 end # parser
 
@@ -60,9 +63,5 @@ elsif instructions[:list_episode_info]
  controller.list_episode_info(a, b, c)
 
 else
-  puts "TODO print"
+  puts "COMPUTER: Error"
 end
-
-
-
-# TODO: print help if no arguments
