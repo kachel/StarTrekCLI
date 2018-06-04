@@ -11,9 +11,9 @@ instructions = {}
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: example.rb [instructions]"
 
-  # opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-  #   instructions[:verbose] = v
-  # end
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    instructions[:verbose] = v
+  end
 
   opts.on("--list-series", "List series") do |bool|
     # either true or false hence the |bool|

@@ -8,10 +8,11 @@ class StarTrekCLI::Controller
   # I am a constant <3
   INDEX_URL = "http://chakoteya.net/StarTrek/index.html"
 
-  def initialize
+  def initialize(print_progress)
     @scraper = StarTrekCLI::Scraper.new
 
     @scraper.each_index_group(INDEX_URL) do |group|
+      print "!" if print_progress
       # special case: Orginal series title has that weird new line hence the ternary
       title = group[:title] == "Original\nand Animated Series" ? "Star Trek" : group[:title]
 
@@ -21,9 +22,8 @@ class StarTrekCLI::Controller
       series_url = URI.join(INDEX_URL, group[:page_url])
 
       @scraper.each_series_page(series_url) do |episode_row|
+        print "?" if print_progress
         season = series.season(episode_row[:season_number])
-        # NYI: episode_url
-        episode = StarTrekCLI::Episode.new(season, episode_row[:production_number], episode_row[:episode_name])
 
         episode_url = series_url + episode_row[:episode_url]
 
