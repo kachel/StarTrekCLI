@@ -6,6 +6,8 @@ require 'rb-readline'
 module StarTrekCLI
   class Scraper
 
+  DATE_REGEX = /Stardate:\s*(?<stardate>[\d.]+)\s*Original\s*Airdate:\s*(?<airdate>[^\n]+)/i
+
     # This method pulls information from the Chakoteya index for each Star Trek
     # series using an iterator. The data is constructed as a hash with
     # `image_url`, `page_url`, and `title` properties. This is yielded as a
@@ -81,14 +83,16 @@ module StarTrekCLI
     # The data is constructed as a hash with `episode_name`, `star_date`, and
     # `air_date` properties. This is yielded as a block argument.
     def episode_page_header(episode_url)
+
       html_source = open(episode_url)
       doc = Nokogiri::HTML(html_source)
       header = doc.css("body > p").first
+      dates = header.children.last.text.match(DATE_REGEX)
 
       episode_stuff = {
         :episode_name => header.css("b").text.strip,
-        :star_date => header.text.split("\n")[2],
-        :air_date => header.text.split("\n")[3].slice(/(?<=:)(.*)/).strip
+        :star_date => dates ? dates[1].strip : nil,
+        :air_date => dates ? dates[2].strip : nil
       }
         yield episode_stuff
     end
