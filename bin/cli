@@ -40,17 +40,24 @@ end # parser
 
 parser.parse!
 
+controller = StarTrekCLI::Controller.new(instructions[:verbose])
+
 if instructions[:list_series]
   puts "All Star Trek series:"
-  StarTrekCLI::Controller.new.list_series
+  controller.list_series
 
 elsif instructions[:list_seasons]
   puts "Here are the seasons for #{instructions[:list_seasons]}:"
-  StarTrekCLI::Controller.new.list_seasons(instructions[:list_seasons])
+  controller.list_seasons(instructions[:list_seasons])
 
 elsif instructions[:list_episodes]
   puts "Here are the episodes:"
-  StarTrekCLI::Controller.new.list_episodes(instructions[:list_episodes][0], instructions[:list_episodes][1])
+  controller.list_episodes(instructions[:list_episodes][0], instructions[:list_episodes][1])
+
+elsif instructions[:list_episode_info]
+ puts "Here is the episode information:"
+ a, b, c = instructions[:list_episode_info]
+ controller.list_episode_info(a, b, c)
 
 else
   puts "TODO print"
