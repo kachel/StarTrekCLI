@@ -1,4 +1,4 @@
-require 'open-uri'
+require 'open-uri/cached'
 require 'pry'
 require 'nokogiri'
 require 'rb-readline'
