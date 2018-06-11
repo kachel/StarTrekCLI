@@ -5,7 +5,9 @@ require 'StarTrekCLI'
 require 'optparse'
 require 'rb-readline'
 
-# stateless interface
+# stateless interface, the user can type a specific episode or start with a series
+# and then choose a season and then choose an episode!
+# optparse is a part of the ruby standardlibrary
 instructions = {}
 
 parser = OptionParser.new do |opts|
