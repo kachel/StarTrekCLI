@@ -21,8 +21,14 @@ class StarTrekCLI::Controller
       # this uses uri which is built into the ruby standardlibrary
       series_url = URI.join(INDEX_URL, group[:page_url])
 
+      current_season = 0
       @scraper.each_series_page(series_url) do |episode_row|
-        print "?" if print_progress
+        # for debugging purposes / caching
+        if print_progress
+          print "?" if current_season != episode_row[:season_number]
+          current_season = episode_row[:season_number]
+        end
+
         season = series.season(episode_row[:season_number])
 
         episode_url = URI.join(INDEX_URL, group[:page_url], episode_row[:episode_url])
