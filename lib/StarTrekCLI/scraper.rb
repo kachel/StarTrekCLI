@@ -1,7 +1,5 @@
 require 'open-uri/cached'
-require 'pry'
 require 'nokogiri'
-require 'rb-readline'
 
 module StarTrekCLI
   class Scraper
@@ -90,7 +88,7 @@ module StarTrekCLI
       dates = header.children.last.text.match(DATE_REGEX)
 
      # the star trek pilot does *not* have any dates... it will return
-     # nil to the user. 
+     # nil to the user.
       episode_stuff = {
         :episode_name => header.css("b").text.strip,
         :star_date => dates ? dates[1].strip : nil,

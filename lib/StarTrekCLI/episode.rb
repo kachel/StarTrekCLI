@@ -1,6 +1,3 @@
-require 'pry'
-require 'byebug'
-
 class StarTrekCLI::Episode
   attr_reader :name, :air_date, :star_date, :production_number, :season
 
