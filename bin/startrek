@@ -16,6 +16,11 @@ parser = OptionParser.new do |opts|
     Welcome, ensign, to #{"StarTrekCLI".colorize(:red)}!
 
     Usage: startrek <command> <arg> [<command2> <arg2>]
+
+    Example:
+        startrek --list-episode-info '#{"Voyager".colorize(:cyan)}':#{"3".colorize(:green)}:#{"149".colorize(:yellow)}
+
+    COMMANDS:
   HEREDOC
 
 
@@ -59,14 +64,23 @@ controller = StarTrekCLI::Controller.new(instructions[:verbose])
 if instructions[:list_series]
   puts "Found Star Trek series:"
   controller.list_series
+  puts " "
+  puts "Now try:"
+  puts "    startrek --list-seasons " +  "SERIES".colorize(:cyan)
 
 elsif instructions[:list_seasons]
   puts "Found season numbers for '#{instructions[:list_seasons].colorize(:cyan)}':"
   controller.list_seasons(instructions[:list_seasons])
+  puts " "
+  puts "Now try:"
+  puts "    startrek --list-episodes '#{instructions[:list_seasons].colorize(:cyan)}':" + "SEASON_NUM".colorize(:green)
 
 elsif instructions[:list_episodes]
   puts "Found episodes' production numbers for season #{instructions[:list_episodes][1].colorize(:green)} of '#{instructions[:list_episodes][0].colorize(:cyan)}':"
   controller.list_episodes(instructions[:list_episodes][0], instructions[:list_episodes][1])
+  puts " "
+  puts "Now try:"
+  puts "    startrek --list-episode-info '#{instructions[:list_episodes][0].colorize(:cyan)}':#{instructions[:list_episodes][1].colorize(:green)}:" + "PRODUCTION_NUM".colorize(:yellow)
 
 elsif instructions[:list_episode_info]
  a, b, c = instructions[:list_episode_info]
