@@ -2,6 +2,7 @@ require 'pry'
 require 'byebug'
 require 'rb-readline'
 require 'uri'
+require 'colorize'
 
 class StarTrekCLI::Controller
 

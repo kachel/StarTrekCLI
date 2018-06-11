@@ -74,6 +74,6 @@ elsif instructions[:list_episode_info]
  controller.list_episode_info(a, b, c)
 
 else
-  puts "COMPUTER: Error"
-  puts "Type '--help' for help"
+  puts parser
+  exit 1
 end
