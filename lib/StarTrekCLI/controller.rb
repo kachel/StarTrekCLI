@@ -51,7 +51,7 @@ class StarTrekCLI::Controller
 
   def list_series
     StarTrekCLI::Series.all.each do |series|
-      puts "#{series.name}"
+      puts "#{series.name}".colorize(:cyan)
     end
   end
 
@@ -60,7 +60,7 @@ class StarTrekCLI::Controller
     raise "This series is not scraped: '#{series_string}'" unless series
     series.seasons.each do |season|
       if season
-        puts season.season_number
+        puts season.season_number.to_s.colorize(:green)
       end
     end
   end
@@ -78,7 +78,7 @@ class StarTrekCLI::Controller
 
     ## working on season.episodes
     season.episodes.each do |production_number, episode|
-      puts "#{production_number}: #{episode.name}"
+      puts "#{production_number.colorize(:yellow)}: #{episode.name}"
     end
   end
 

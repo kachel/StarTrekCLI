@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'StarTrekCLI'
 require 'optparse'
 require 'rb-readline'
+require 'colorize'
 
 # stateless interface, the user can type a specific episode or start with a series
 # and then choose a season and then choose an episode!
@@ -11,10 +12,20 @@ require 'rb-readline'
 instructions = {}
 
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [instructions]"
+  opts.banner = <<-HEREDOC
+    Welcome, ensign, to #{"StarTrekCLI".colorize(:red)}!
+
+    Usage: startrek <command> <arg> [<command2> <arg2>]
+  HEREDOC
+
 
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     instructions[:verbose] = v
+  end
+
+  opts.on("-h", "--help", "Print this help") do |h|
+    puts opts
+    exit 1
   end
 
   opts.on("--list-series", "List series") do |bool|
@@ -22,25 +33,23 @@ parser = OptionParser.new do |opts|
     instructions[:list_series] = bool
   end
 
-  opts.on("--list-seasons SERIES", "List seasons for a series") do |series|
+  opts.on("--list-seasons SERIES", "List seasons for " + "SERIES".colorize(:cyan)) do |series|
   # list seasons *for* this series
     instructions[:list_seasons] = series
   end
 
   # list episodes for a season
-  opts.on("--list-episodes SERIES:SEASON", "List episodes for a season") do |spec|
+  opts.on("--list-episodes SERIES:SEASON_NUM", "List episodes for " + "SEASON_NUM".colorize(:green) + " of " + "SERIES".colorize(:cyan) ) do |spec|
     raise "COMPUTER: Do not forget your colon. You typed '#{spec}'" unless spec.include?(":")
     instructions[:list_episodes] = spec.split(":")
   end
 
-  opts.on("--list-episode-info SERIES:SEASON:PRODUCTION", "List episodes information") do |spec|
+  opts.on("--list-episode-info SERIES:SEASON_NUM:PRODUCTION_NUM", "Detail episode " + "PRODUCTION_NUM".colorize(:yellow) + " from " + "SEASON_NUM".colorize(:green) + " of " + "SERIES".colorize(:cyan)  ) do |spec|
     raise "COMPUTER: Do not forget your colon. You typed '#{spec}'" unless spec.include?(":")
 
     # FIXME
     instructions[:list_episode_info] = spec.split(":")
   end
-
-
 end # parser
 
 parser.parse!
@@ -48,22 +57,23 @@ parser.parse!
 controller = StarTrekCLI::Controller.new(instructions[:verbose])
 
 if instructions[:list_series]
-  puts "All Star Trek series:"
+  puts "Found Star Trek series:"
   controller.list_series
 
 elsif instructions[:list_seasons]
-  puts "Here are the seasons for #{instructions[:list_seasons]}:"
+  puts "Found season numbers for '#{instructions[:list_seasons].colorize(:cyan)}':"
   controller.list_seasons(instructions[:list_seasons])
 
 elsif instructions[:list_episodes]
-  puts "Here are the episodes:"
+  puts "Found episodes' production numbers for season #{instructions[:list_episodes][1].colorize(:green)} of '#{instructions[:list_episodes][0].colorize(:cyan)}':"
   controller.list_episodes(instructions[:list_episodes][0], instructions[:list_episodes][1])
 
 elsif instructions[:list_episode_info]
- puts "Here is the episode information:"
  a, b, c = instructions[:list_episode_info]
+ puts "Found episode #{c.colorize(:yellow)} from season #{b.colorize(:green)} of '#{a.colorize(:cyan)}':"
  controller.list_episode_info(a, b, c)
 
 else
   puts "COMPUTER: Error"
+  puts "Type '--help' for help"
 end
