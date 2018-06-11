@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kjwittig@gmail.com"]
 
   spec.summary       = %q{A CLI tool to query Star Trek info.}
-  spec.description   = %q{ Write a longer description or delete this line.}
+  spec.description   = %q{Use flags to navigate!}
   spec.homepage      = "https://github.com/scrptktty/StarTrekCLI"
   spec.license       = "MIT"
 
