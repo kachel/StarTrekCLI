@@ -11,6 +11,8 @@ A CLI tool to query Star Trek info! Happy searching trekkies.
 
 [Paypal]: <https://www.paypal.com/donate/?token=qv0Imb4exBKKrVsAc0tQrSUxlNgAgaldDhQDu6sQ-o0YSK5bNQcUMVpTC9Qp26kun4dgE0&country.x=GB&locale.x=GB>
 
+> Note at the time, this CLI only covers Star Trek, The Next Generation, Deep Space Nine, and Voyager. Enterprise and Discovery TBD.
+
 ## Installation
 
 Add this line to your application's Gemfile, if you want to use this as a library:
