@@ -28,8 +28,7 @@ module StarTrekCLI
         yield cell_group
       end
     end
-        # TODO: FUCKING ENTERPRISE THE GARBAGE SERIESSSS
-
+        
     # This method pulls information from the scraped series using an iterator.
     # The data is constructed as a hash with `episode_name`, `star_date`, and
     # `air_date` properties. This is yielded as a block argument.
