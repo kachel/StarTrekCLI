@@ -11,7 +11,6 @@ module StarTrekCLI
     # `image_url`, `page_url`, and `title` properties. This is yielded as a
     # block argument.
     def each_index_group(index_url)
-      # FIXME: there might be a ghost tbody hanging around
       doc = Nokogiri::HTML(open(index_url))
       table = doc.css("tbody")
 
